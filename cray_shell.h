@@ -9,7 +9,10 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdbool.h>
-
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <stddef.h>
+#include <errno.h>
 
 /*
  *thebse aibfbskf
