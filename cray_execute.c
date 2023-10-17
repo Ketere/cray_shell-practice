@@ -1,0 +1,27 @@
+#include "cray_shell.h"
+
+
+void run_command(const char *command) {
+    const char *args[] = {command, NULL};
+    pid_t child_pid = fork();
+
+    if (child_pid == -1) {
+        perror("fork");
+        exit(EXIT_FAILURE);
+    } else if (child_pid == 0) {
+        /*Child process*/
+
+        /*Construct the full path to the command*/
+        char command_path[256];
+        snprintf(command_path, sizeof(command_path), "/bin/%s", command);
+
+        const char *args[] = {command, NULL};
+        execve(command_path, args, NULL);
+
+        perror("execve");
+        exit(EXIT_FAILURE);
+    } else {
+        /*Parent process*/
+        wait(NULL);
+    }
+}
